@@ -75,9 +75,18 @@
 		<div id="symptomDiv">
 			<!-- 분석 결과 받아와야 함! -->
 			<fieldset>
-				<legend>건강 관리 맞춤 Tip!</legend>
+				<legend>의심되는 증상</legend>
 				<p id="symptomTxt">치매가 매우 의심됩니다.</p>
 				<div id="barchart"></div>
+			</fieldset>
+		</div>
+		<div id="adviceDiv">
+			<!-- 분석 결과 받아와야 함! -->
+			<fieldset>
+				<legend>건강 관리 맞춤 Tip!</legend>
+				<div id="videoDiv">
+					
+				</div>
 			</fieldset>
 		</div>
 	</div>
