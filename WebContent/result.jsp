@@ -85,6 +85,7 @@
 			<fieldset>
 				<legend>건강 관리 맞춤 Tip!</legend>
 				<div id="videoDiv">
+				
 					
 				</div>
 			</fieldset>
