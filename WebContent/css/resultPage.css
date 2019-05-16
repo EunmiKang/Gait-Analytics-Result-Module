@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+#box {
+	margin-top: 20px;	
+}
+
+#resultVideo {
+	margin: auto;
+	display: block;
+}
+
+#resultDiv, #symptomDiv {
+	max-width: 100%;
+	margin: 20px auto;
+}
+
+#resultTxt {
+	text-align: center;
+}
+
+#symptomTxt {
+	text-align: center;
+	color: red;
+	margin-bottom: 0px;
+}
+
+
+#piechart, #piechart svg, #barchart, #barchart svg {
+	max-width: 100%;
+}
