@@ -89,7 +89,7 @@
 	<div id="box">
 		<video id="resultVideo" width="300" height="500" controls="controls">
 			<!-- source 동영상 경로 필요! -->
-			<source src="http://192.168.0.86/upload/application/sk/file_save/a.mp4">
+			<source src="http://192.168.0.25/upload/application/sk/Video/a_result.mp4">
 		</video>
 		<div id="resultDiv">
 			<!-- 분석 결과 받아와야 함! -->
