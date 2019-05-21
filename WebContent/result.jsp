@@ -1,5 +1,18 @@
+<%@page import="java.io.File"%>
+<%@page import="java.io.FileInputStream"%>
+<%@page import="java.io.BufferedReader"%>
+<%@page import="java.io.InputStreamReader"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	String filePath = request.getSession().getServletContext().getRealPath("/test.txt");
+	File file = new File(filePath);
+	BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+	String flag = br.readLine().trim();
+	String[] result = br.readLine().split(",");
+	br.close();
+%>
 
 <!DOCTYPE html>
 <html>
@@ -21,11 +34,23 @@
 		/**
 		 * 걸음걸이에 대한 분석 결과를 piechart로 뿌려주는 기능
 		 */
-		function drawPieChart(data) {
-			//alert(data);
-			var data = google.visualization.arrayToDataTable([
+		function drawPieChart(test_data) {
+			//alert(test_data);
+			data_arr = [['결과', 'percent']]
+			<%
+			for(int i=0; i<result.length/2; i++) {
+				String res = result[i*2];
+				int per = Integer.parseInt(result[i*2+1]);
+				%>
+				tmp = ['<%=res%>', <%=per%>]
+				data_arr.push(tmp)
+				<%
+			}
+			%>
+			var data = google.visualization.arrayToDataTable(data_arr);
+			/* var data = google.visualization.arrayToDataTable([
 					[ '결과', 'percent' ], [ '정상', 11 ], [ '팔자걸음', 4 ],
-					[ '안짱걸음', 2 ], [ '구부정한 자세', 2 ] ]);
+					[ '안짱걸음', 2 ], [ '구부정한 자세', 2 ] ]); */
 
 			var chart = new google.visualization.PieChart(document
 					.getElementById('piechart'));
@@ -58,6 +83,9 @@
 	</script>
 </head>
 <body>
+	<div id="bar">
+		
+	</div>
 	<div id="box">
 		<video id="resultVideo" width="300" height="500" controls="controls">
 			<!-- source 동영상 경로 필요! -->
