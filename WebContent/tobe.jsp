@@ -4,24 +4,6 @@
 <%@page import="java.io.InputStreamReader"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%
-	String filePath = request.getSession().getServletContext().getRealPath("/test.txt");
-	File file = new File(filePath);
-	BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-	String flag = br.readLine().trim();
-	String msg = "";
-	if(flag.equals("0")) {
-		msg = "정상입니다 :)";
-	} else if(flag.equals("1")) {
-		msg = "허리가 굽은 상태로 걷고 계십니다 :<";
-	} else if(flag.equals("2")) {
-		msg = "발을 질질 끌면서 걷고 계십니다 :<";
-	}
-	
-	String[] result = br.readLine().split(",");
-	br.close();
-%>
 
 <!DOCTYPE html>
 <html>
@@ -35,31 +17,18 @@
 		google.charts.load('current', {
 			'packages' : [ 'corechart' ]
 		});
-		//google.charts.setOnLoadCallback(drawPieChart);
-		google.charts.setOnLoadCallback(drawBarChart);
-		data = 'hi'
-		google.charts.setOnLoadCallback(function(){ drawPieChart(data) });
+		google.charts.setOnLoadCallback(drawPieChart);
+		//google.charts.setOnLoadCallback(drawBarChart);
+		//data = 'hi'
+		//google.charts.setOnLoadCallback(function(){ drawPieChart(data) });
 		
 		/**
 		 * 걸음걸이에 대한 분석 결과를 piechart로 뿌려주는 기능
 		 */
-		function drawPieChart(test_data) {
-			//alert(test_data);
-			var data_arr = [['결과', 'percent']];
-			<%
-			for(int i=0; i<result.length/2; i++) {
-				String res = result[i*2];
-				int per = Integer.parseInt(result[i*2+1]);
-				%>
-				var tmp = ['<%=res%>', <%=per%>];
-				data_arr.push(tmp);
-				<%
-			}
-			%>
-			var data = google.visualization.arrayToDataTable(data_arr);
-			/* var data = google.visualization.arrayToDataTable([
+		function drawPieChart() {
+			var data = google.visualization.arrayToDataTable([
 					[ '결과', 'percent' ], [ '정상', 11 ], [ '팔자걸음', 4 ],
-					[ '안짱걸음', 2 ], [ '구부정한 자세', 2 ] ]); */
+					[ '거북목', 2 ], [ '구부정한 자세', 1 ] ]);
 
 			var chart = new google.visualization.PieChart(document
 					.getElementById('piechart'));
@@ -72,10 +41,10 @@
 		 */
 		function drawBarChart() {
 		  var data = google.visualization.arrayToDataTable([
-		    ["증상", "%", { role: "style" } ],
-		    ["치매", 60, "red"],
-		    ["파킨슨병", 30, "yellow"],
-		    ["알츠하이머", 10, "green"]
+		    ["부위", "정도", { role: "style" } ],
+		    ["걸음걸이", 70, "red"],
+		    ["목", 30, "yellow"],
+		    ["허리", 10, "green"]
 		  ]);
 
 		  var view = new google.visualization.DataView(data);
@@ -100,30 +69,47 @@
 			<!-- source 동영상 경로 필요! -->
 			<source src="http://192.168.0.25/upload/application/sk/Video/a_result.mp4">
 		</video>
-		<div id="resultDiv">	
-			<!-- 분석 결과 받아와야 함! -->
+		<div id="resultDiv">
 			<fieldset>
 				<legend>분석 결과</legend>
-				<p id="resultTxt"><%=msg %></p>
+				<p id="resultTxt"></p>
 				<div id="piechart"></div>
 			</fieldset>
 		</div>
 		<!-- 정상 아닐 때만 띄우는걸로 -->
 		<div id="symptomDiv">
-			<!-- 분석 결과 받아와야 함! -->
 			<fieldset>
-				<legend>의심되는 증상</legend>
-				<p id="symptomTxt">치매가 매우 의심됩니다.</p>
-				<div id="barchart"></div>
+				<legend>교정이 필요하다고 분석된 부위</legend>
+				<div id="barchart">
+					<div id="barbox">
+						<table>
+							<tr>
+								<td></td>
+								<td><div><p class="guide" style="border-left: 1px solid gray">의심</p><p class="guide">주의</p><p class="guide">위험</p></div></td>
+							</tr>
+							<tr>
+								<td>걸음걸이</td>
+								<td><div class="bar" style="width: 80%; background-color: red"></div></td>
+							</tr>
+							<tr>
+								<td>거북목</td>
+								<td><div class="bar" style="width: 40%; background-color: yellow"></div></td>
+							</tr>
+							<tr>
+								<td>허리</td>
+								<td><div class="bar" style="width: 10%; background-color: green"></div></td>
+							</tr>
+						</table>
+					</div>
+				</div>
 			</fieldset>
 		</div>
 		<div id="adviceDiv">
-			<!-- 분석 결과 받아와야 함! -->
 			<fieldset>
 				<legend>건강 관리 맞춤 Tip!</legend>
 				<div id="videoDiv">
-				
-					
+					<iframe width="727" height="409" src="https://www.youtube.com/embed/vrshvg0yztc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					<!-- <iframe src="https://www.youtube.com/embed/iRuID9T3xC4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 				</div>
 			</fieldset>
 		</div>

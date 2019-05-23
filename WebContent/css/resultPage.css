@@ -33,3 +33,39 @@
 	width: 70%;
 	margin: auto;
 }
+
+#barbox {
+	width: 80%;
+	margin: auto;
+}
+
+.guide {
+	width: 32%;
+	text-align: center;
+	display: inline-block;
+	font-size: 13pt;
+	font-weight: 5;
+	margin: 5px 0px;
+	border-right: 1px solid gray;
+}
+
+table {
+	width: 100%;
+}
+
+td:first-child {
+	width: 20%;
+	text-align: right;
+	padding-right: 10px;
+}
+
+legend {
+	text-align: center;
+	padding: 0px 10px;
+}
+
+.bar {
+	height: 30px;
+	border-radius: 5px;
+	margin: 5px 0px;
+}
